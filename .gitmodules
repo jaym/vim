@@ -13,3 +13,6 @@
 [submodule "nerdtree"]
 	path = nerdtree
 	url = https://github.com/vim-scripts/The-NERD-tree.git
+[submodule "bundle/color-mustang"]
+	path = bundle/color-mustang
+	url = https://github.com/croaker/mustang-vim.git
