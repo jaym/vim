@@ -16,3 +16,6 @@
 [submodule "bundle/color-mustang"]
 	path = bundle/color-mustang
 	url = https://github.com/croaker/mustang-vim.git
+[submodule "bundle/scmdiff"]
+	path = bundle/scmdiff
+	url = https://github.com/ghewgill/vim-scmdiff.git
