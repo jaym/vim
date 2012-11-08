@@ -54,6 +54,7 @@ map <Enter> o<esc>
 
 "backups
 set undofile
+set undodir=~/.vim-tmp/undo//
 set nobackup
 set nowb
 set noswapfile
