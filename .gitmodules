@@ -10,8 +10,8 @@
 [submodule "bundle/nerdcommenter"]
 	path = bundle/nerdcommenter
 	url = https://github.com/vim-scripts/The-NERD-Commenter.git
-[submodule "nerdtree"]
-	path = nerdtree
+[submodule "bundle/nerdtree"]
+	path = bundle/nerdtree
 	url = https://github.com/vim-scripts/The-NERD-tree.git
 [submodule "bundle/color-mustang"]
 	path = bundle/color-mustang
