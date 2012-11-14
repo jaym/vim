@@ -1,7 +1,15 @@
-set nocompatible
+set nocompatible "stop vim from behaving in a strongly vi-compatable way
 
 call pathogen#infect()
 let mapleader = ","
+
+"filetype configuration
+filetype plugin indent on
+
+"colors
+syntax on
+"colorscheme wombat 
+colorscheme mustang 
 
 "indentation
 set ai
@@ -17,7 +25,7 @@ set splitbelow splitright
 :noremap <leader>h :split^M^W^W<cr>
 
 "tabs
-set showtabline=2
+set showtabline=2 "never show tabs
 map <leader>t <esc>:tabnew<cr>
 map t <esc>:tabn<cr>
 map T <esc>:tabp<cr>
@@ -27,14 +35,31 @@ set hlsearch  "highlight search
 set incsearch "incremental search
 set smartcase "Ignore case when searching lowercase
 
-"colors
-syntax on
-colorscheme mustang
+"backups
+set undofile
+set undodir=~/.vim-tmp/undo//
+set nobackup
+set nowb
+set noswapfile
 
-"use system clipboard
-set clipboard=unnamed
+"command auto complete
+set wildmenu
+set wildmode=list:longest
 
-set linebreak "wrap at word
+"session options
+set sessionoptions=blank,buffers,curdir,help,resize,tabpages,winsize
+nmap <leader>SS :wa<cr>:mksession! ~/.vim-tmp/session/
+nmap <leader>SO :wa<cr>:so ~/.vim-tmp/session/
+nmap <leader>SD :!rm ~/.vim-tmp/session/
+
+"misc options
+set clipboard=unnamed "use system clipboard
+set linebreak "wrap  at word
+set scrolloff=3 "pad cursor location
+set number "show line numbers
+set matchpairs+=<:>,$:$ "add to matching pairs
+set vb t_vb= "turn off the bell
+set mouse=a "enable the mouse
 
 "navigate wrapped lines
 set backspace=indent,eol,start
@@ -47,56 +72,56 @@ imap jj <esc>
 imap kk <esc>
 imap lll <esc>
 imap hhh <esc>
-imap nnn <esc>
+imap www <esc>
 imap bbb <esc>
 
+"enter creates new lines
 map <Enter> o<esc>
 
-"backups
-set undofile
-set undodir=~/.vim-tmp/undo//
-set nobackup
-set nowb
-set noswapfile
+"toggle spellchecking
+nmap <leader>s :setlocal spell! spell?<cr>
 
-filetype plugin indent on
+"allow for saving of files as sudo
+cmap w!! %!sudo tee > /dev/null %
 
-"sets what is saved when you save a session
-set sessionoptions=blank,buffers,curdir,help,resize,tabpages,winsize
+"x doesn't yank text when in normal mode
+nnoremap x "_x
+nnoremap X "_X
 
-set number "show line numbers
-set matchpairs+=<:>
-set vb t_vb= "turn off the bell
-set mouse=a "enable the mouse
-
-"nerd tree
+"nerd tree mappings
 :noremap <leader>n :NERDTreeToggle<cr>
-let NERDTreeHijackNetrw=1 "user instead of Netrw when doing an edit /foobar
-let NERDTreeMouseMode=1 "single click for everything
 
-" complete option
-"set complete=.,w,b,u,t,k
-"let g:AutoComplPop_CompleteOption = '.,w,b,u,t,k'
-"set complete=.
-"let g:AutoComplPop_IgnoreCaseOption = 0
-"let g:AutoComplPop_BehaviorKeywordLength = 50
-"let g:AutoComplPop_NotEnableAtStart=1
+"fugitive mappings
+map <leader>gd :Gdiff<cr>
+map <leader>gch :Gsplit<cr>
+map <leader>gcv :Gvsplit<cr>
+map <leader>gs :Gstatus<cr>
+map <leader>gb :Gblame<cr>
+
+"powerline options
+"let g:Powerline_symbols = 'fancy'
+set laststatus=2
+
+"reload vim when vimrc is modified
+augroup myvimrc
+	au!
+	au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
 
 "save position
-"au BufWinLeave * mkview
-"au BufWinEnter * silent loadview
 autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
-" Remember info about open buffers on close
-" set viminfo^=%
 
+"refresh all buffers
 function! RefreshAll()
 	set noconfirm
-	tabdo e!
+	bufdo e!
 	set confirm
 endfunction
 
 nmap <leader>r :call RefreshAll()<cr>
-nmap <leader>s :setlocal spell! spell?<cr>
+
+"
+let g:atp_Python = "/usr/bin/python2"
